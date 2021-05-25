@@ -13,6 +13,12 @@ const User= require('./model/userSchema')
 const PORT = process.env.PORT
 
 
+app.use(express.json());
+
+// link the router file
+app.use(require('./router/auth'))
+
+
 
 //middleware add new
 
@@ -24,7 +30,7 @@ const middleware=(req,res,next)=>{
 
 
 app.get('/', function (req, res) {
-  res.send('Hello home')
+  res.send('Hello home from server')
   console.log('hello about')
 })
 
@@ -47,9 +53,10 @@ app.get('/signup', function (req, res) {
     res.send('Hello signup')
 })
 
-app.get('/registration', function (req, res) {
-    res.send('Hello registration')
-})
+// app.get('/registration', function (req, res) {
+//     res.send('Hello registration')
+// })
 app.listen(PORT,()=>{
     console.log(`SERVER RUNNING ON PORT NO ${PORT}`)
 })
+
