@@ -13,7 +13,8 @@ router.get('/', function (req, res) {
   })
 
 
-router.post('/registration', function (req, res) {
+  // async await
+router.post('/registration', async function (req, res) {
 
     const {name,email,phone,work,password,cpassword} = req.body;
 
@@ -26,6 +27,52 @@ router.post('/registration', function (req, res) {
     if(!name || !email || !phone || !work || !password || !cpassword){
         return res.status(422).json({error: " please filled the all field properly "})
     }
+
+    // then catch 
+
+    try{
+        const userExist = await User.findOne({email:email})
+
+        if (userExist){
+            return res.status(422).json({error: " User already Exist "});
+        }
+
+        const user = new User({name:name ,email,phone,work,password,cpassword});
+        await user.save();
+
+        res.status(201).json({message : " User Register successful "})
+    
+    
+        
+
+    }catch(err){
+        console.log(err)
+
+    }
+  
+
+
+
+})
+
+/*
+using promise---------------------------->>>>>>>>>>>>>>>>>>>>>>>
+
+router.post('/registration',  function (req, res) {
+
+    const {name,email,phone,work,password,cpassword} = req.body;
+
+    // console.log(name,email,phone,work,password,cpassword)
+
+    // console.log(req.body.name)
+    // console.log(req.body.email)
+
+    // res.json({message:req.body})
+    if(!name || !email || !phone || !work || !password || !cpassword){
+        return res.status(422).json({error: " please filled the all field properly "})
+    }
+
+    then catch 
 
     User.findOne({email:email})
     .then((userExist)=>{
@@ -44,8 +91,6 @@ router.post('/registration', function (req, res) {
 
     }).catch(err => {console.log(err)})
 
-
-
 })
 
 // {
@@ -57,4 +102,6 @@ router.post('/registration', function (req, res) {
 //     "cpassword":"password"
 
 // }
+*/
+
 module.exports = router;
