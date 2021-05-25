@@ -49,13 +49,16 @@ app.get('/contact', function (req, res) {
     res.send('Hello contact')
 })
 
+/*
 app.get('/signup', function (req, res) {
     res.send('Hello signup')
 })
 
-// app.get('/registration', function (req, res) {
-//     res.send('Hello registration')
-// })
+
+app.get('/registration', function (req, res) {
+    res.send('Hello registration')
+})*/
+
 app.listen(PORT,()=>{
     console.log(`SERVER RUNNING ON PORT NO ${PORT}`)
 })
