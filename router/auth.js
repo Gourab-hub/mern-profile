@@ -13,7 +13,7 @@ router.get('/', function (req, res) {
   })
 
 
-  // async await
+  // async await style
 router.post('/registration', async function (req, res) {
 
     const {name,email,phone,work,password,cpassword} = req.body;
