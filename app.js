@@ -23,7 +23,7 @@ const middleware=(req,res,next)=>{
 
 
 app.get('/', function (req, res) {
-  res.send('Hello gb')
+  res.send('Hello home')
   console.log('hello about')
 })
 
