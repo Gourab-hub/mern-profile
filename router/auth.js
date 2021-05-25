@@ -2,6 +2,9 @@ const express = require('express');
 
 const router = express.Router();
 
+
+
+
 require('../db/conn')
 const User = require("../model/userSchema")
 
@@ -38,7 +41,9 @@ router.post('/registration', async function (req, res) {
         }
 
         const user = new User({name:name ,email,phone,work,password,cpassword});
-        await user.save();
+
+
+        const userRegister = await user.save();
 
         res.status(201).json({message : " User Register successful "})
     
