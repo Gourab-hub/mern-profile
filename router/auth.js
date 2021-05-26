@@ -1,5 +1,5 @@
 const express = require('express');
-
+const jwt = require('jsonwebtoken');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 
@@ -112,6 +112,7 @@ router.post('/login', async (req, res) =>{
 
     try{
 
+        let token;
         const {email,password} = req.body;
         if(!email || !password ){
             return res.status(422).json({error: " please filled the all field properly "})
@@ -130,13 +131,16 @@ router.post('/login', async (req, res) =>{
         //     cpassword: 'password',
         //     __v: 0
         //   }
+        
 
         
 
         if(userlogin){
-            
+
             const isMatch = await bcrypt.compare(password,userlogin.password)
             
+            token = await userlogin.generateAuthToken()// token generate
+            console.log(token)
             if(isMatch){
                 res.status(201).json({message: " User login Successfully "})
                 console.log("okk")
