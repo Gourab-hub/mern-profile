@@ -140,7 +140,16 @@ router.post('/login', async (req, res) =>{
             const isMatch = await bcrypt.compare(password,userlogin.password)
             
             token = await userlogin.generateAuthToken()// token generate
+
+
             console.log(token)
+            //cookie expiry date manage
+            res.cookie('jwtkon',token,{
+                expires: new Date(Date.now() + 25892000000),
+                httpOnly:true 
+            });
+
+
             if(isMatch){
                 res.status(201).json({message: " User login Successfully "})
                 console.log("okk")
