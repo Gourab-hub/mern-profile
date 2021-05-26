@@ -1,7 +1,7 @@
 const express = require('express');
 
 const router = express.Router();
-
+const bcrypt = require('bcryptjs');
 
 
 
@@ -131,13 +131,25 @@ router.post('/login', async (req, res) =>{
         //     __v: 0
         //   }
 
+        
+
         if(userlogin){
-            res.status(201).json({message: " User login Successfully "})
-            // console.log("okk")
+            
+            const isMatch = await bcrypt.compare(password,userlogin.password)
+            
+            if(isMatch){
+                res.status(201).json({message: " User login Successfully "})
+                console.log("okk")
+            }else{
+                res.status(401).json({ error : " User error "});
+                console.log("error")
+            }
+
         }else{
-            res.status(401).json({ error : " User error "});
-            // console.log("error")
+            res.status(201).json({message: " Invalid Candidate "})
         }
+
+        
 
         // postman
         // {
